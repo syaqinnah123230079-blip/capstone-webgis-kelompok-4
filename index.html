@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal WebGIS Capstone</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">CG</div>
+    <div><strong>CAPSTONE GEOMATIKA</strong><span>Portal WebGIS Kelompok</span></div>
+  </div>
+  <nav><a href="#home">Home</a><a href="#webgis">WebGIS</a><a href="#tentang">Tentang</a></nav>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-copy">
+    <span class="eyebrow">CAPSTONE DESIGN • TEKNIK GEOMATIKA</span>
+    <h1>Portal Informasi Geospasial <span>Desa Sidodadi</span></h1>
+    <p>Portal ini menjadi halaman utama untuk mengakses beberapa WebGIS hasil pengolahan data capstone.</p>
+    <div class="actions">
+      <a class="btn primary" href="#webgis">Lihat Pilihan WebGIS</a>
+      <a class="btn secondary" href="webgis.html">Buka WebGIS Taksonomi</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="visual">
+      <div class="grid"></div>
+      <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span>
+      <div class="floating"><small>Portal WebGIS</small><strong>Data Spasial Terintegrasi</strong><span>Capstone Design</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="apps" id="webgis">
+  <div class="section-head">
+    <span class="eyebrow">PILIH APLIKASI</span>
+    <h2>WebGIS Capstone</h2>
+    <p>Pilih aplikasi sesuai informasi yang ingin ditampilkan.</p>
+  </div>
+
+  <div class="cards">
+    <article class="card">
+      <div class="num">01</div>
+      <div class="icon">⌂</div>
+      <span class="label">WEBGIS KELOMPOK 4</span>
+      <h3>Taksonomi & Exposure Bangunan</h3>
+      <p>Menampilkan titik bangunan, klasifikasi fungsi, taksonomi, kondisi visual, dan nilai exposure.</p>
+      <div class="tags"><span>Taksonomi</span><span>Exposure</span><span>Bangunan</span></div>
+      <a class="card-btn" href="webgis.html">Buka WebGIS →</a>
+    </article>
+
+    <article class="card">
+      <div class="num">02</div>
+      <div class="icon">◉</div>
+      <span class="label">WEBGIS TEMAN</span>
+      <h3>WebGIS Kelompok Teman</h3>
+      <p>Hubungkan portal ini ke WebGIS teman menggunakan link publik GitHub Pages, Netlify, atau Vercel.</p>
+      <div class="tags"><span>External WebGIS</span><span>Kelompok Lain</span></div>
+      <a class="card-btn dark" id="friendLink"
+         href="https://LINK-WEBGIS-TEMAN"
+         target="_blank" rel="noopener noreferrer">Buka WebGIS Teman ↗</a>
+    </article>
+  </div>
+
+  <div class="note">
+    <strong>Cara menghubungkan WebGIS teman</strong>
+    <p>Buka <code>index.html</code>, cari <code>https://LINK-WEBGIS-TEMAN</code>, lalu ganti dengan link publik WebGIS teman.</p>
+  </div>
+</section>
+
+<section class="about" id="tentang">
+  <div><span class="eyebrow">TENTANG PORTAL</span><h2>Satu halaman untuk beberapa WebGIS</h2></div>
+  <p>Dengan struktur ini, WebGIS lain dapat ditambahkan tanpa mengubah WebGIS utama yang sudah dibuat.</p>
+</section>
+</main>
+
+<footer><div><strong>Portal WebGIS Capstone</strong><span>Teknik Geomatika</span></div><span>© 2026</span></footer>
+
+<script>
+const fl = document.getElementById("friendLink");
+fl.addEventListener("click", function(e){
+  if(this.href.includes("LINK-WEBGIS-TEMAN")){
+    e.preventDefault();
+    alert("Link WebGIS teman belum diisi. Ganti https://LINK-WEBGIS-TEMAN pada index.html.");
+  }
+});
+</script>
+</body>
+</html>
