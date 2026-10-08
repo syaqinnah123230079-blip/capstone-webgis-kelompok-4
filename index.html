@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebGIS Taksonomi & Exposure Bangunan</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <link rel="stylesheet" href="style.css?v=9" />
+</head>
+
+<body>
+  <div class="shell">
+
+    <!-- ==============================
+         TOP NAVIGATION
+    =============================== -->
+    <header class="topnav">
+      <div class="brand">
+        <div class="brand-logos">
+          <img src="assets/logo_itera.jpg" alt="Logo ITERA" class="brand-logo">
+          <img src="assets/logo_prodi.jpg" alt="Logo GT" class="brand-logo">
+          <img src="assets/logo_kemker2.png" alt="Logo KEMKER" class="brand-logo">
+        </div>
+        
+        <div class="brand-text">
+          <h1>Building Taxonomy GIS</h1>
+          <p>Taksonomi & Exposure Bangunan</p>
+        </div>
+      </div>
+
+      <nav>
+        <button id="navDashboard" class="nav-btn active">Dashboard</button>
+        <button id="navMap" class="nav-btn">Peta</button>
+      </nav>
+    </header>
+
+    <!-- ==============================
+         DASHBOARD PAGE
+    =============================== -->
+    <section id="dashboardPage" class="page active">
+
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">capstone DESIGN Kelompok 4</span>
+          <h2>Pemetaan Taksonomi dan Exposure Bangunan</h2>
+          <p>
+            Dashboard interaktif untuk melihat karakteristik taksonomi, distribusi fungsi bangunan,
+            dan nilai exposure di Desa Sidodadi, Kecamatan Teluk Pandan, Kabupaten Pesawaran, Lampung.
+          </p>
+
+          <div class="hero-actions">
+            <button id="openMapBtn" class="primary-btn">
+              Buka Peta →
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-badge">
+          <span>Basis Data</span>
+          <strong id="heroCount">0</strong>
+          <small>titik bangunan survei</small>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Ringkasan Data</span>
+          <h3>Ikhtisar survei bangunan</h3>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <article class="summary-card">
+          <span class="summary-icon">⌂</span>
+          <div>
+            <small>Total Bangunan</small>
+            <strong id="dashTotal">0</strong>
+            <p>Titik bangunan dalam basis data</p>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <span class="summary-icon">Rp</span>
+          <div>
+            <small>Total Exposure</small>
+            <strong id="dashExposure">Rp0</strong>
+            <p>Akumulasi nilai exposure</p>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <span class="summary-icon">Ø</span>
+          <div>
+            <small>Rata-rata Exposure</small>
+            <strong id="dashAvgExposure">Rp0</strong>
+            <p>Rata-rata per bangunan</p>
+          </div>
+        </article>
+
+        <article class="summary-card">
+          <span class="summary-icon">□</span>
+          <div>
+            <small>Luas Total</small>
+            <strong id="dashArea">0 m²</strong>
+            <p>Akumulasi luas bangunan</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- =========================================
+      TAXONOMY BROWSER SECTION
+      ========================================= -->
+    <div class="dashboard-lower">
+      
+      <section class="taxonomy-browser-section">
+
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">BUILDING TAXONOMY</span>
+            <h3>Contoh Kode Taksonomi Bangunan</h3>
+            <p>
+              Pilih salah satu kode taksonomi untuk melihat penjelasan
+              komponen kode dan contoh gambar bangunannya.
+            </p>
+          </div>
+        </div>
+
+        <div class="taxonomy-browser-layout">
+
+          <!-- KIRI -->
+          <div class="taxonomy-browser-left">
+
+            <div class="taxonomy-select-card">
+              <label for="taxonomySelect" class="taxonomy-label-title">
+                Pilih Jenis Taksonomi
+              </label>
+
+              <select id="taxonomySelect" class="taxonomy-select">
+                <option value="">-- Pilih kode taksonomi --</option>
+              </select>
+            </div>
+
+            <div class="taxonomy-info-card">
+              <div class="taxonomy-code-badge" id="taxonomyCodeBadge">
+                Belum dipilih
+              </div>
+
+              <h4 id="taxonomyCodeTitle">
+                Silakan pilih salah satu kode taksonomi
+              </h4>
+
+              <p id="taxonomyCodeIntro" class="taxonomy-intro">
+                Penjelasan kode akan muncul di sini setelah kamu memilih
+                salah satu jenis taksonomi pada kotak pilihan di atas.
+              </p>
+
+              <div class="taxonomy-breakdown" id="taxonomyBreakdown">
+                <div class="taxonomy-breakdown-empty">
+                  Komponen kode belum ditampilkan.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- KANAN -->
+          <div class="taxonomy-browser-right">
+            <div class="taxonomy-image-card">
+
+              <div id="taxonomyPlaceholder" class="taxonomy-placeholder">
+                <span>Contoh Gambar</span>
+              </div>
+
+              <img
+                id="taxonomyPreviewImage"
+                class="taxonomy-preview-image"
+                alt="Contoh gambar taxonomy"
+              >
+
+              <div class="taxonomy-image-caption" id="taxonomyImageCaption">
+                Belum ada taxonomy yang dipilih.
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FUNCTION CATEGORIES -->
+      <div class="section-head spaced">
+        <div>
+          <span class="eyebrow">Klasifikasi Fungsi</span>
+          <h3>Bangunan berdasarkan fungsi utama</h3>
+          <p>Klik kategori untuk langsung melihatnya di peta.</p>
+        </div>
+      </div>
+
+      <div id="functionCards" class="function-grid"></div>
+
+      <!-- CHARTS -->
+      <div class="section-head spaced">
+        <div>
+          <span class="eyebrow">Analisis Ringkas</span>
+          <h3>Distribusi fungsi dan exposure</h3>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <article class="chart-card">
+          <div class="chart-title">
+            <div>
+              <small>Komposisi Bangunan</small>
+              <h4>Persentase fungsi bangunan</h4>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="functionChart"></canvas>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-title">
+            <div>
+              <small>Nilai Exposure</small>
+              <h4>Persentase exposure per fungsi</h4>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="exposureChart"></canvas>
+          </div>
+        </article>
+      </div>
+
+      <div class="chart-grid lower-grid">
+        <article class="chart-card wide">
+          <div class="chart-title">
+            <div>
+              <small>Perbandingan Nilai</small>
+              <h4>Total exposure menurut fungsi bangunan</h4>
+            </div>
+          </div>
+          <div class="chart-box bar-box">
+            <canvas id="exposureBarChart"></canvas>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <span class="eyebrow">Interpretasi Dashboard</span>
+          <h4>Bagaimana membaca grafik?</h4>
+          <p>
+            Diagram fungsi menunjukkan proporsi jumlah bangunan pada setiap kategori.
+            Diagram exposure menunjukkan kontribusi nilai exposure masing-masing
+            kategori terhadap total exposure seluruh bangunan.
+          </p>
+        </article>
+      </div>
+
+      <!-- ==============================
+           SELESAI BAGIAN BAWAH DASHBOARD
+      =============================== -->
+    </div>
+    <!-- /.dashboard-lower -->
+
+  </section>
+  <!-- /#dashboardPage -->
+
+    <!-- ==============================
+         MAP PAGE
+    =============================== -->
+    <section id="mapPage" class="page map-page">
+
+      <aside class="sidebar">
+        <div class="side-head">
+          <span class="eyebrow">Peta Interaktif</span>
+          <h3>Kontrol Data</h3>
+        </div>
+
+        <div class="side-panel">
+          <h4>Ringkasan tampilan</h4>
+          <div class="mini-stats">
+            <div>
+              <span>Titik</span>
+              <b id="mapTotal">0</b>
+            </div>
+            <div>
+              <span>Exposure</span>
+              <b id="mapExposure">Rp0</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-panel">
+          <h4>Visualisasi</h4>
+
+          <label for="mapMode">Warna titik berdasarkan</label>
+          <select id="mapMode">
+            <option value="function">Klasifikasi Fungsi</option>
+            <option value="taxonomy">Taksonomi</option>
+            <option value="exposure">Exposure</option>
+            <option value="condition">Kondisi Visual</option>
+          </select>
+
+          <div id="legend" class="legend"></div>
+        </div>
+
+        <div class="side-panel">
+          <h4>Filter</h4>
+
+          <label>ID Bangunan</label>
+          <input id="searchId" type="text" placeholder="Contoh: SDI-A01-001"/>
+
+        <div class="filter-blok-hidden"></div>
+          <label></label>
+          <select id="filterBlock">
+            <option value="">Semua blok</option>
+          </select>
+
+          <label>Klasifikasi Fungsi</label>
+          <select id="filterFunction">
+            <option value="">Semua fungsi</option>
+          </select>
+
+          <label>Kondisi Visual</label>
+          <select id="filterCondition">
+            <option value="">Semua kondisi</option>
+          </select>
+
+          <div class="button-row">
+            <button id="applyFilter" class="primary-btn small-btn">
+              Terapkan
+            </button>
+            <button id="resetFilter" class="secondary-btn small-btn">
+              Reset
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="map-main">
+        <div class="map-toolbar">
+          <div>
+            <span class="eyebrow">Spatial Viewer</span>
+            <h3>Distribusi Bangunan</h3>
+          </div>
+
+          <div class="toolbar-actions">
+            <button id="mapHome">⌂ AOI</button>
+            <button id="mapFullscreen">⛶ Fullscreen</button>
+          </div>
+        </div>
+
+        <div id="map"></div>
+      </main>
+
+    </section>
+
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="app.js?v=9"></script>
+</body>
+</html>
