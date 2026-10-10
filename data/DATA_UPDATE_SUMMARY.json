@@ -1,0 +1,32 @@
+{
+  "source_file": "TaksonomiFiks.xlsx",
+  "sheet": "Data",
+  "records_excel": 521,
+  "features_geojson": 521,
+  "invalid_coordinates": 0,
+  "total_exposure": 283295209222.2,
+  "average_exposure": 543752800.81,
+  "total_area_m2": 56265.789,
+  "unique_taxonomy_codes": 23,
+  "function_counts": {
+    "Hunian": 457,
+    "Perdagangan dan Jasa": 23,
+    "Keagamaan": 9,
+    "Pendidikan": 4,
+    "Kesehatan": 2,
+    "Perkantoran dan Pelayanan Umum": 3,
+    "Pergudangan": 8,
+    "Peternakan": 9,
+    "Industri": 1,
+    "Utilitas": 1,
+    "Fasilitas Penunjang": 2,
+    "Bangunan Kosong/Rusak": 1,
+    "Bangunan Sederhana": 1
+  },
+  "block_counts": {
+    "A": 93,
+    "C": 131,
+    "B": 179,
+    "D": 118
+  }
+}
