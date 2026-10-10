@@ -656,3 +656,42 @@ nav{display:flex;align-items:center;gap:8px;margin-left:auto;}
 label[for="filterBlock"]{
   display:none;
 }
+
+/* =========================================================
+   SEKILAS INFO
+========================================================= */
+
+.quick-info-card{
+  padding: 22px 24px;
+  margin-bottom: 0;
+}
+
+.quick-info-card .eyebrow{
+  display: block;
+  margin-bottom: 14px;
+}
+
+.quick-info-item{
+  margin-bottom: 18px;
+}
+
+.quick-info-item:last-child{
+  margin-bottom: 0;
+}
+
+.quick-info-item h4{
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.quick-info-item p{
+  margin: 0;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* Kurangi jarak sebelum bagian taxonomy */
+.taxonomy-browser-section{
+  margin-top: 32px !important;
+}
