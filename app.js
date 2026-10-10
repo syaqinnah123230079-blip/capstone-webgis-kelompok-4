@@ -1355,7 +1355,7 @@ function findTaxonomyImage(code){
 
       img.onload = () => {
 
-        resolve(path);
+        resolve(versionedPath);
 
       };
 
@@ -1367,8 +1367,8 @@ function findTaxonomyImage(code){
       };
 
 
-      img.src =
-        encodeURI(path);
+      const versionedPath = path + "?v=20261011";
+      img.src = encodeURI(versionedPath);
 
     }
 
